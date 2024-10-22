@@ -1,8 +1,12 @@
+import { Header } from "./components/header";
+import { PlayingField } from "./components/playing-field";
+
 function App() {
   return (
-    <>
-      <h1 className="text-red-500">Welcome</h1>
-    </>
+    <div className="h-screen flex flex-col">
+      <Header />
+      <PlayingField />
+    </div>
   );
 }
 
