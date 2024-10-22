@@ -1,4 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+import { reset } from "../features/gameSlice";
+
 export const Header = () => {
+  const dispatch = useDispatch();
+
+  const { score } = useSelector((state) => state.game);
+
+  // Reset the state when pressing the Reset button
+  const handleReset = () => {
+    dispatch(reset());
+  };
+
   return (
     <div className="h-20 relative flex items-center justify-between bg-[#1a1714] text-white border-b border-b-stone-700">
       <div className="flex-1 grid place-items-center">
@@ -8,8 +20,12 @@ export const Header = () => {
         <span>Player 2</span>
       </div>
       <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-between gap-x-8">
-        <span className="text-3xl font-semibold">Score: 1:0</span>
+        {/* Displaying score from the state */}
+        <span className="text-3xl font-semibold">
+          Score: {score.player1} : {score.player2}
+        </span>
         <button
+          onClick={handleReset}
           type="button"
           className="bg-green-600 rounded-lg px-2 py-1 hover:bg-green-600/90 duration-200"
         >
