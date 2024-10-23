@@ -22,7 +22,7 @@ export const Header = () => {
       </div>
       <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-between gap-x-8">
         {/* Displaying score from the state */}
-        <span className="text-xl sm:text-2xl xl:text-3xl font-semibold">
+        <span className="text-lg sm:text-2xl xl:text-3xl font-semibold">
           Score: {score.player1} : {score.player2}
         </span>
         <button
