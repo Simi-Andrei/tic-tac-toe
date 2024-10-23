@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { reset } from "../features/gameSlice";
+import { resetHistory } from "../features/gameSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
 
+  // Get the score from the state
   const { score } = useSelector((state) => state.game);
 
   // Reset the state when pressing the Reset button
   const handleReset = () => {
-    dispatch(reset());
+    dispatch(resetHistory());
   };
 
   return (

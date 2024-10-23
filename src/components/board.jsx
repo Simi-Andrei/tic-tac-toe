@@ -57,6 +57,7 @@ export const Board = ({ player }) => {
 
   const dispatch = useDispatch();
 
+  // Get necessary data from the store
   const { board, winner, status, currentPlayer } = useSelector(
     (state) => state.game
   );
@@ -78,6 +79,7 @@ export const Board = ({ player }) => {
     }
   }, [status]);
 
+  // Calculate the possible winning combinations
   const calculateWinningCells = (squares) => {
     const lines = [
       [0, 1, 2], // Row 1
@@ -86,8 +88,8 @@ export const Board = ({ player }) => {
       [0, 3, 6], // Column 1
       [1, 4, 7], // Column 2
       [2, 5, 8], // Column 3
-      [0, 4, 8], // Diagonal \
-      [2, 4, 6], // Diagonal /
+      [0, 4, 8], // Diagonal 1
+      [2, 4, 6], // Diagonal 2
     ];
     for (let line of lines) {
       const [a, b, c] = line;
@@ -102,6 +104,7 @@ export const Board = ({ player }) => {
     return []; // No winning cells
   };
 
+  // Check if the cell is not null or if it is the player's turn
   const handleCellClick = (index) => {
     if (board[index] || currentPlayer !== player) return;
 
@@ -111,6 +114,7 @@ export const Board = ({ player }) => {
   return (
     <div className="mb-8">
       <div className="grid grid-cols-3 border-[#313131] rounded-lg border-[16px] bg-stone-500 gap-[1px] relative">
+        {/* Display winning line if the game is won (not draw) */}
         {winner && <WinningLine winningCells={winningCells} />}
         {board.map((cell, index) => (
           <div key={index} className="">

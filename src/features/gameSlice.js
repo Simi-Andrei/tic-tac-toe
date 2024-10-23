@@ -32,6 +32,7 @@ const initialState = {
     player2: 0,
   },
   winningCells: [],
+  messages: JSON.parse(localStorage.getItem("chatMessages")) || [],
 };
 
 const gameSlice = createSlice({
@@ -46,6 +47,19 @@ const gameSlice = createSlice({
       state.status = "inProgress";
       state.winningCells = [];
     },
+    // Resest the state and also the board, messages and score
+    resetHistory(state) {
+      state.board = Array(9).fill(null);
+      state.currentPlayer = "X";
+      state.winner = null;
+      state.status = "inProgress";
+      state.winningCells = [];
+      state.messages = [];
+      localStorage.removeItem("chatMessages");
+      state.score = { player1: 0, player2: 0 };
+      localStorage.setItem("gameScore", JSON.stringify(state.score));
+    },
+    // Player move
     move(state, action) {
       const { index, player } = action.payload;
 
@@ -77,8 +91,19 @@ const gameSlice = createSlice({
         }
       }
     },
+    // Add a message to the chat
+    addMessage(state, action) {
+      const { player, text } = action.payload;
+      const timestamp = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+      state.messages.push({ player, text, timestamp });
+      localStorage.setItem("chatMessages", JSON.stringify(state.messages)); // Save chat messages to local storage
+    },
   },
 });
 
-export const { reset, move } = gameSlice.actions;
+export const { reset, move, addMessage, resetHistory } = gameSlice.actions;
 export default gameSlice.reducer;
